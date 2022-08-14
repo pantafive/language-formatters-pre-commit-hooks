@@ -106,12 +106,14 @@ def pretty_format_yaml(argv: typing.Optional[typing.List[str]] = None) -> int:
             if string_content != pretty_content:
                 print("File {} is not pretty-formatted".format(yaml_file))
 
+                status = 1
+                
                 if args.autofix:
                     print("Fixing file {}".format(yaml_file))
                     with io.open(yaml_file, "w", encoding="UTF-8") as output_file:
                         output_file.write(str(pretty_content))
-
-                status = 1
+                    status = 0
+                    
         except BaseException as e:  # pragma: no cover
             print(
                 "Input File {} is not a valid YAML file, consider using check-yaml: {}".format(yaml_file, e),
